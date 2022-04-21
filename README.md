@@ -8,6 +8,8 @@ A graphical app that stitches together microscope images and dynamically loads i
 
 Image data in the following format is read in.
 
-        self.jpgpath = f'{file_path}\{id}\{id}_ibf.jpg'
-        self.metadatapath = f'{file_path}\{id}.hdf'
-        self.imdatapath = f'{file_path}\{id}\{id}_data.hdf5' 
+'code
+     self.jpgpath = f'{file_path}\{id}\{id}_ibf.jpg'
+     self.metadatapath = f'{file_path}\{id}.hdf'
+     self.imdatapath = f'{file_path}\{id}\{id}_data.hdf5' 
+'
