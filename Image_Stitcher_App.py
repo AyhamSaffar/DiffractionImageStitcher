@@ -31,7 +31,6 @@ class Micrograph():
     '''
     def __init__(self, file_path, id):
         self.id = id
-        self.tiffpath = f'{file_path}\{id}\{id}_ibf.tiff'
         self.jpgpath = f'{file_path}\{id}\{id}_ibf.jpg'
         self.metadatapath = f'{file_path}\{id}.hdf'
         self.imdatapath = f'{file_path}\{id}\{id}_data.hdf5' 
@@ -48,7 +47,7 @@ class Micrograph():
 
         hdf = h5.File(self.imdatapath, 'r')
         #loading diffraction data into storage
-        hdf_data = da.from_array(hdf['Experiments/__unnamed__/data'], chunks=(1,1,515,515))
+        hdf_data = da.from_array(hdf['Experiments/__unnamed__/data'], chunks='auto')
         #creating arrays from data that are only loaded into memory as needed
         self.difdata = hs.signals.Signal2D(hdf_data).as_lazy().data
 
@@ -127,10 +126,9 @@ class Stitch():
         '''normalises the calculated positions of images so the bottom left is at 0,0'''
         miny, minx = min([im.cypos for im in self.ims if im.cypos!=None]), min([im.cxpos for im in self.ims if im.cxpos!=None])
         for im in self.ims:
-            if im.cxpos == None:
-                continue
-            im.cypos -= miny
-            im.cxpos -= minx
+            if im.cxpos != None:
+                im.cypos -= miny
+                im.cxpos -= minx
 
     def draw_stitch(self):
         '''returns an array of the stitched image'''
@@ -228,6 +226,20 @@ class Stitch():
             time.sleep(0.1)
             window.refresh()
 
+    def flash_image(self, im_index):
+        '''
+        Flashes a blue border around the selected image in the stitch window
+        '''
+        im = self.ims[im_index]
+        top_left = (im.cxpos, im.cypos)
+        bottom_right = (im.cxpos+im.pxsize, im.cypos+im.pysize)
+        for _ in range(3):
+            box = window['-STITCH-'].draw_rectangle(top_left, bottom_right, line_color='blue')
+            window.refresh()
+            time.sleep(0.1)
+            window['-STITCH-'].delete_figure(box)
+            window.refresh()
+            time.sleep(0.1)
 
 '''Front End'''
 
@@ -272,14 +284,5 @@ while True:  # Event Loop
             stitch.display_diff(x,y)
 
         if event.startswith('-BUTTON'):
-            i = int(event[7:-1])-1
-            im = stitch.ims[i]
-            top_left = (im.cxpos, im.cypos)
-            bottom_right = (im.cxpos+im.pxsize, im.cypos+im.pysize)
-            for _ in range(3):
-                box = window['-STITCH-'].draw_rectangle(top_left, bottom_right, line_color='blue')
-                window.refresh()
-                time.sleep(0.1)
-                window['-STITCH-'].delete_figure(box)
-                window.refresh()
-                time.sleep(0.1)
+            image_number = int(event[7:-1])-1
+            stitch.flash_image(image_number)
