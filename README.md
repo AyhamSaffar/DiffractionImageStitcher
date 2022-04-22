@@ -38,7 +38,7 @@ This app is in an early stage of developement and i am very keen to add the foll
 
 - Diffraction image colorbar selector
 
-- Micrograph position indicator
+- Micrograph pixel position indicator
 
 - Tabs to show multiple diffraction images for overlapping micrographs
 
