@@ -14,7 +14,9 @@ Micrograph image data in the following format is read in.
 
 Computer vision feature detection is then used to stitch these images together.
 
-Finally diffraction images are loaded into memory and displayed only when selected.
+This is done by shifting each image in 2D so that similar features overlap.
+
+Finally diffraction images are only loaded into memory while displayed.
 
 ## Installation
 
