@@ -16,7 +16,7 @@ Computer vision feature detection is then used to stitch these images together.
 
 This is done by shifting each image in 2D so that similar features overlap.
 
-Finally diffraction images are only loaded into memory while displayed.
+Finally diffraction images are only loaded into memory when displayed.
 
 ## Installation
 
