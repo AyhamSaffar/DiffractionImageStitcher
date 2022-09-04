@@ -2,7 +2,7 @@
 
 A graphical app that stitches together microscope images and dynamically loads in each pixel's diffraction pattern when needed.
 
-![Diffraction Image Stitcher Demo Gif](https://media.giphy.com/media/UDU0L4m2JzESLGVdPf/giphy.gif)
+![image](https://user-images.githubusercontent.com/76114207/188330103-72580335-6ab2-4121-927c-e71a341bd239.png)
 
 ## Method
 
