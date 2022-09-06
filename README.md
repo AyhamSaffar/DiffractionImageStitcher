@@ -1,4 +1,5 @@
 # Diffraction Image Stitcher
+[![DOI](https://zenodo.org/badge/470667607.svg)](https://zenodo.org/badge/latestdoi/470667607)
 
 A graphical app that stitches together microscope images and dynamically loads in each pixel's diffraction pattern when needed.
 
